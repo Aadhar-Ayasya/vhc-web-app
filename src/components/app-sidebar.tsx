@@ -38,7 +38,7 @@ export function AppSidebar() {
     },
     {
       title: "therapists",
-      url: "#",
+      url: "/therapists",
       icon: Stethoscope,
     },
     {

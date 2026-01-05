@@ -7,6 +7,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { BadgeCheck } from "lucide-react";
 import   upcoming  from '@/components/Upcoming'
 import Upcoming from "@/components/Upcoming";
+import Link from "next/link";
+import axios from "axios";
 export default function Home() {
   const { data: session } = useSession();
   if (session) {
@@ -55,11 +57,34 @@ export default function Home() {
       </div>
     );
   }
+  const handleClick = () => {
+    axios
+      .get("http://localhost:8080/api/v1/user", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+      });
+    // console.log(response);
+  };
+  const handleLogout = () => {
+    axios
+      .post("http://localhost:8080/api/v1/logout", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+      });
+    // console.log(response);
+  };
   return (
     <div className="w-full">
-      <p>Not signed in</p>
       <button onClick={() => signIn("google")}>Sign in with Google</button>
+      <p>Not signed in</p>
+      <Link href={"/signup"}>SignUP</Link>
       <div className="@container/main flex flex-1 flex-col gap-2"></div>
+      <button onClick={handleClick}>getuser</button>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }
