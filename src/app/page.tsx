@@ -5,6 +5,8 @@ import { SectionCards } from "@/components/ui/section-cards";
 import { Settings } from "lucide-react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { BadgeCheck } from "lucide-react";
+import   upcoming  from '@/components/Upcoming'
+import Upcoming from "@/components/Upcoming";
 import Link from "next/link";
 import axios from "axios";
 export default function Home() {
@@ -47,6 +49,10 @@ export default function Home() {
               </div>
             </div>
           </SectionCards>
+          <Upcoming/>
+
+
+
         </div>
       </div>
     );
