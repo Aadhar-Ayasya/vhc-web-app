@@ -8,24 +8,28 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+// import { Progress } from "@/components/ui/progress";
 
 interface SectionCardsProps {
   title?: string;
   description?: string;
   badge?: string;
   footer?: string;
+  classname?: string;
 }
 
 export function SectionCards({
   title,
   description,
+  classname = "",
   badge,
   footer,
   children,
 }: PropsWithChildren<SectionCardsProps>) {
   return (
-    <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+    <div
+      className={`*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 ${classname}`}
+    >
       <Card className=" glass-effect">
         <CardHeader>
           {description && <CardDescription>{description}</CardDescription>}

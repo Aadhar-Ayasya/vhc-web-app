@@ -1,7 +1,6 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -9,8 +8,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Calendar,
   HomeIcon,
@@ -18,12 +17,12 @@ import {
   Settings,
   Stethoscope,
 } from "lucide-react";
-
+import { usePathname } from "next/navigation";
 export function AppSidebar() {
   const items = [
     {
       title: "Home",
-      url: "#",
+      url: "/",
       icon: HomeIcon,
     },
     {
@@ -38,7 +37,7 @@ export function AppSidebar() {
     },
     {
       title: "therapists",
-      url: "/therapists",
+      url: "/therapist",
       icon: Stethoscope,
     },
     {
@@ -47,20 +46,30 @@ export function AppSidebar() {
       icon: Settings,
     },
   ];
-
+  const isMobile = useIsMobile();
+  const pathname = usePathname();
   return (
-    <Sidebar collapsible="icon" variant="floating" className="glass-effect">
-      <SidebarContent className="glass-effect">
-        <SidebarGroup>
+    <Sidebar collapsible="icon" variant="floating">
+      <SidebarHeader>VHC</SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup className="h-full!">
           <SidebarGroupLabel>Application</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
+          <SidebarGroupContent className="h-full">
+            <SidebarMenu className="flex justify-center gap-10 h-full">
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                <SidebarMenuItem
+                  className={`${
+                    pathname === item.url ? "bg-blue-800" : "bg-white"
+                  } rounded-full flex items-center justify-center h-24`}
+                  key={item.title}
+                >
+                  <SidebarMenuButton className="tag-btn">
+                    <a className="tag flex! w-100%" href={item.url}>
+                      <item.icon
+                        className="test"
+                        color={`${pathname === item.url ? "white" : "black"}`}
+                      />
+                      {isMobile && <span>{item.title}</span>}
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

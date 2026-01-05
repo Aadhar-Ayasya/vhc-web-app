@@ -19,7 +19,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-export function SignUpForm() {
+export function LogInForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -37,7 +37,7 @@ export function SignUpForm() {
 
     try {
       const session = await axios.post(
-        "http://localhost:8080/auth/signup",
+        "http://localhost:8080/auth/Login",
         data,
         {
           withCredentials: true,
@@ -101,11 +101,11 @@ export function SignUpForm() {
 
         <div className="flex justify-end gap-4">
           <Button asChild variant="link">
-            <Link href="/login">Log In</Link>
+            <Link href="/signup">Sign Up</Link>
           </Button>
 
           <Button type="submit" disabled={loading}>
-            {loading ? "Signing up..." : "Sign Up"}
+            {loading ? "Logging In..." : "Login"}
           </Button>
         </div>
       </form>
