@@ -13,7 +13,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signUpSchema } from "./schema";
 import Link from "next/link";
 import axios from "axios";
@@ -30,7 +30,9 @@ export function SignUpForm() {
       password: "",
     },
   });
-
+  // useEffect(() => {
+  //   router.refresh();
+  // }, []);
   async function onSubmit(data: z.infer<typeof signUpSchema>) {
     setError(null);
     setLoading(true);
@@ -43,7 +45,9 @@ export function SignUpForm() {
           withCredentials: true,
         }
       );
-      if (session.data.message) router.push("/");
+      if (session.data.message) {
+        router.refresh();
+      }
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const message = err.response?.data?.message;

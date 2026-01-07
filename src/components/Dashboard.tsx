@@ -1,37 +1,20 @@
 // "use client";
-import React, { use } from "react";
 import { Progress } from "@/components/ui/progress";
 import { SectionCards } from "@/components/ui/section-cards";
 import { BadgeCheck } from "lucide-react";
 import Upcoming from "@/components/Upcoming";
-import { cookies } from "next/headers";
 
-async function getUser() {
-  const cookieStore = await cookies();
-
-  const res = await fetch("http://localhost:8080/api/v1/user", {
-    headers: {
-      Cookie: cookieStore.toString(),
-    },
-    cache: "no-store",
-  });
-  const session = res.json();
-  return session;
-}
 function Dashboard() {
-  const session = use(getUser());
-
   return (
     <div className="w-full">
-      <div className="flex justify-between">
+      {/* <div className="flex justify-between">
         <p className="p-4">
           Hey {session?.email || "ambsfmn"} glad to have you back!🙌
         </p>
-
         <form action="/api/signout" method="GET">
           <button type="submit">Sign out</button>
         </form>
-      </div>
+      </div> */}
       <div className="flex flex-1 flex-row gap-2">
         <SectionCards
           classname="h-fit"
@@ -40,7 +23,7 @@ function Dashboard() {
           badge="15%"
           footer="therapy goals achived over the last 3 months"
         >
-          <Progress value={50} />
+          <Progress className="bg-white h-7" value={50} />
         </SectionCards>
         <SectionCards
           classname="h-fit"
@@ -49,7 +32,7 @@ function Dashboard() {
           badge="15%"
           footer="therapy goals achived over the last 3 months"
         >
-          <Progress value={50} />
+          <Progress className="bg-white h-7" value={50} />
         </SectionCards>
         <SectionCards
           classname="h-fit"
