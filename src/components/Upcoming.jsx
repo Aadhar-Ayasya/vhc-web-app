@@ -70,8 +70,8 @@ const Upcoming = () => {
   }
 
   return (
-    <SectionCards classname="min-w-[400px] " title="Upcoming">
-      <div className=" yoyo mb-8">
+    <SectionCards classname="min-w-100" title="Upcoming">
+      <div className="yoyo mb-8">
         <div className="flex justify-between text-lg font-medium text-gray-800">
           {weekDays.map((day, index) => {
             const isSelected =
@@ -88,7 +88,7 @@ const Upcoming = () => {
                 <span
                   className={`text-sm ${
                     isSelected
-                      ? "tex-green-500 font-semibold"
+                      ? "text-blue-500 font-semibold"
                       : day.isToday
                       ? "text-green-500 font-semibold"
                       : "text-gray-600"
@@ -97,27 +97,25 @@ const Upcoming = () => {
                   {day.dayName}
                 </span>
 
-                {isSelected ? (
-                  <div className="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
-                    {day.date}
-                  </div>
-                ) : day.isToday ? (
-                  <div
-                    className="w-8 h-8 flex items-center justify-center bg-green-500 text-white rounded-full"
-                    ref={ref}
-                  >
-                    {day.date}
-                  </div>
-                ) : (
-                  <span>{day.date}</span>
-                )}
+                <div
+                  className={`w-8 h-8 flex items-center justify-center rounded-full transition-colors ${
+                    isSelected
+                      ? "bg-linear-to-t from-sky-200 to-blue-400"
+                      : day.isToday
+                      ? "bg-linear-to-t from-green-200 to-green-400"
+                      : "text-gray-800 hover:bg-gray-100"
+                  }`}
+                  ref={day.isToday ? ref : null}
+                >
+                  {day.date}
+                </div>
               </div>
             );
           })}
         </div>
       </div>
 
-      <div className="space-y-6 mb-8 h-[100px] overflow-scroll">
+      <div className="space-y-6 mb-8 h-40 overflow-scroll">
         {loading && (
           <div className="text-center text-gray-500 py-4">
             Loading appointments...
@@ -173,7 +171,7 @@ const Upcoming = () => {
       </div>
 
       <div>
-        <button className="w-full bg-blue-700 text-white font-medium py-4 rounded-full hover:bg-blue-800 transition">
+        <button className="w-full text-white text-lg py-4 rounded-full transition-all bg-linear-to-t from-sky-400 to-blue-600 hover:from-sky-500 hover:to-blue-700">
           Schedule a new consultation
         </button>
       </div>

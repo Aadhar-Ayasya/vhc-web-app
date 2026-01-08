@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { getUser } from "@/hooks/get-user-server";
 import { cn } from "@/lib/utils";
+import { BellDot } from "lucide-react";
+import { ModeToggle } from "./theme-switcher";
 async function Header({
   children,
 }: Readonly<{
@@ -16,7 +18,8 @@ async function Header({
 }>) {
   const session = await getUser();
   console.log("session in Header", session);
-  const Authenticated = session.message !== "User not authenticated";
+  const Authenticated = session && session.message !== "User not authenticated";
+
   if (!Authenticated)
     return (
       <div className="flex flex-col w-full ">
@@ -30,11 +33,19 @@ async function Header({
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between items-center">
-        <p className="p-4">
-          Hey {session?.email || "ambsfmn"} glad to have you back!🙌
-          {`${session}`}
+        <p className="p-8  text-2xl">
+          Hey, {session?.email || "ambsfmn"} Glad to have you back! 🙌
+          {/* {`${session}`} */}
         </p>
-        <div className="">
+        <div className="glass-effect p-2 rounded-full flex gap-4 mx-25">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <BellDot size={30} />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="glass-effect">
+              <h1>no notifications to show RN</h1>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
@@ -62,6 +73,7 @@ async function Header({
               </form>
             </DropdownMenuContent>
           </DropdownMenu>
+          <ModeToggle />
         </div>
       </div>
 

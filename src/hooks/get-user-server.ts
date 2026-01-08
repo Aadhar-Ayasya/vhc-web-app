@@ -9,6 +9,17 @@ export async function getUser() {
     },
     cache: "no-store",
   });
-  const session = await res.json();
-  return session;
+
+  // 🚨 Handle non-JSON responses safely
+  const contentType = res.headers.get("content-type");
+
+  if (!res.ok) {
+    return { message: "User not authenticated" };
+  }
+
+  if (!contentType?.includes("application/json")) {
+    return { message: "User not authenticated" };
+  }
+
+  return await res.json();
 }
